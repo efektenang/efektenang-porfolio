@@ -15,12 +15,12 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                             </div>
                         </Link>
                         <span className="border-b-[1px] border-gray-200 w-full p-2 mb-1"></span>
-                        <Link href={'/users'}>
+                        <Link href={'/'} title='Dashboard'>
                             <div className="bg-gray-300 hover:bg-purple-800 text-black hover:text-white p-3 my-4 rounded-lg inline-block">
                                 <RxDashboard size={30} />
                             </div>
                         </Link>
-                        <Link href={'/users'}>
+                        <Link href={'/customers'} title='Customers'>
                             <div className="bg-gray-300 hover:bg-purple-800 text-black hover:text-white p-3 my-4 rounded-lg inline-block">
                                 <RxPerson size={30} />
                             </div>
