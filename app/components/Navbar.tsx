@@ -9,7 +9,7 @@ const Navbar = () => {
   const strPath = pathName.toString()
   const name = strPath.replace('/', '')
   return (
-    <div className="flex justify-between px-4 pt-4">
+    <div className="flex justify-between px-5 pt-4">
       <h2 className='font-bold capitalize'>{name || 'Home'}</h2>
       <h2>Welcome back, Admin!</h2>
     </div>

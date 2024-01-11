@@ -20,7 +20,7 @@ const Sidebar = ({ children }: { children: React.ReactNode }) => {
                                 <RxDashboard size={30} />
                             </div>
                         </Link>
-                        <Link href={'/customers'} title='Customers'>
+                        <Link href={'/articles'} title='Customers'>
                             <div className="bg-gray-300 hover:bg-purple-800 text-black hover:text-white p-3 my-4 rounded-lg inline-block">
                                 <RxPerson size={30} />
                             </div>

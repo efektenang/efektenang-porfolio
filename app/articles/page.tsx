@@ -1,21 +1,36 @@
 import React from 'react'
 import { FaRegTrashCan, FaRegPenToSquare } from "react-icons/fa6";
+import Pagination from '../components/Pagination';
+import AddArticles from '../components/AddArticles';
 
-const fetchData = async () => {
-    const res = await fetch('https://api-trials.x5.com.au/api/articles?search&page=1&page_size=5')
+const fetchData = async (page: number, perPage: number) => {
+    const res = await fetch(`https://api-trials.x5.com.au/api/articles?search&page=${page}&page_size=${perPage}`)
     return res.json()
 }
 
-const Customers = async () => {
-    const getData = await fetchData()
+const formatDate = (dateString: string): string => {
+    return new Date(dateString).toLocaleDateString()
+}
+
+const Articles = async ({ searchParams }: {
+    searchParams: {
+        page: any;[key: number]: number | number[] | undefined
+    }
+}) => {
+    let page = parseInt(searchParams.page)
+    const perPage = 5
+    const getData = await fetchData(page, perPage)
     const { articles } = getData.data
 
     return (
-        <div className='bg-gray mih-h-screen'>
+        <div>
             <div className="p-4">
                 <div className="w-full m-auto p-4 border rounded-lg bg-white overflow-y-auto">
-                    <h2 className='font-bold mb-2'>Customers List</h2>
-                    <div className="relative overflow-x-auto">
+                    <div className='flex justify-between items-center mb-3'>
+                        <h2 className='font-bold ml-2'>Articles List</h2>
+                        <AddArticles />
+                    </div>
+                    <div className="overflow-x-auto">
                         <table className="w-full text-sm text-left rtl:text-right text-gray-500">
                             <thead className="text-xs text-gray-700 uppercase bg-gray-50">
                                 <tr>
@@ -49,13 +64,13 @@ const Customers = async () => {
                                             {article.author.email}
                                         </td>
                                         <td className="px-6 py-4">
-                                            {article.created_at}
+                                            {formatDate(article.created_at)}
                                         </td>
-                                        <td className="pt-3 pb-1 ">
-                                            <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+                                        <td className="px-3 py-3">
+                                            <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2.5 ml-3 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
                                                 <FaRegTrashCan size={18} />
                                             </button>
-                                            <button type="button" className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">
+                                            <button type="button" className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-2.5 ml-3 dark:focus:ring-yellow-900">
                                                 <FaRegPenToSquare size={18} />
                                             </button>
                                         </td>
@@ -64,11 +79,11 @@ const Customers = async () => {
                             </tbody>
                         </table>
                     </div>
-
+                    <Pagination setPage={page} />
                 </div>
             </div>
         </div>
     )
 }
 
-export default Customers
+export default Articles
