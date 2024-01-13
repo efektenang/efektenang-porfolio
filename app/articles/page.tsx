@@ -3,9 +3,10 @@ import { FaRegTrashCan, FaRegPenToSquare } from "react-icons/fa6";
 import Pagination from '../components/Pagination';
 import AddArticles from '../components/AddArticles';
 import TabsContent from '../components/TabsContent';
+import DeleteArticle from '../components/DeleteArticle';
 
 const fetchData = async (page: number, perPage: number) => {
-    const res = await fetch(`https://api-trials.x5.com.au/api/articles?search&page=${page}&page_size=${perPage}`)
+    const res = await fetch(`https://api-trials.x5.com.au/api/articles?search&page=${page}&page_size=${perPage}`, {cache: 'no-store'})
     return res.json()
 }
 
@@ -65,10 +66,8 @@ const Articles = async ({ searchParams }: {
                                         <td className="px-6 py-4">
                                             {formatDate(article.created_at)}
                                         </td>
-                                        <td className="px-3 py-3">
-                                            <button type="button" className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-2.5 py-2.5 ml-3 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-                                                <FaRegTrashCan size={18} />
-                                            </button>
+                                        <td className="flex px-3 py-3">
+                                            <DeleteArticle articleId={article.id}/>
                                             <button type="button" className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-2.5 py-2.5 ml-3 dark:focus:ring-yellow-900">
                                                 <FaRegPenToSquare size={18} />
                                             </button>
@@ -86,22 +85,8 @@ const Articles = async ({ searchParams }: {
             id: 2,
             title: 'Add/Edit Article',
             content: (
-                <div className='mt-3'>
-                    <form action="">
-                        <div className="mb-6">
-                            <label htmlFor="large-input" className="block mb-2 text-sm font-medium text-gray-900">Large input</label>
-                            <input type="text" id="large-input" className="block w-full p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500" />
-                        </div>
-                        <div className="mb-6">
-                            <label htmlFor="default-input" className="block mb-2 text-sm font-medium text-gray-900">Default input</label>
-                            <input type="text" id="default-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" />
-                        </div>
-                        <div>
-                            <label htmlFor="small-input" className="block mb-2 text-sm font-medium text-gray-900">Small input</label>
-                            <input type="text" id="small-input" className="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500" />
-                        </div>
-
-                    </form>
+                <div>
+                    <AddArticles />
                 </div>
             )
         }
