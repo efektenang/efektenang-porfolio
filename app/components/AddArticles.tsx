@@ -13,7 +13,7 @@ const AddArticles = () => {
         e.preventDefault()
 
         setIsMutating(true)
-        await fetch('https://api-trials.x5.com.au/api/articles', {
+        await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/articles`, {
             method: 'POST',
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({

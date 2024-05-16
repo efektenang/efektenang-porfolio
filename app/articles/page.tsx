@@ -6,7 +6,7 @@ import TabsContent from '../components/TabsContent';
 import DeleteArticle from '../components/DeleteArticle';
 
 const fetchData = async (page: number, perPage: number) => {
-    const res = await fetch(`https://api-trials.x5.com.au/api/articles?search&page=${page}&page_size=${perPage}`, {cache: 'no-store'})
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/articles?search&page=${page}&page_size=${perPage}`, {cache: 'no-store'})
     return res.json()
 }
 
